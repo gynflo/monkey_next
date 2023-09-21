@@ -61,19 +61,19 @@ const config: Config = {
         ],
         caption1: [
           "20px",
-          { lineHeight: "24px", letterSpacing: "0.6px", fontWeight: "400" },
+          { lineHeight: "24px", letterSpacing: "-0.6px", fontWeight: "400" },
         ],
         caption2: [
           "20px",
-          { lineHeight: "20px", letterSpacing: "0.3px", fontWeight: "400" },
+          { lineHeight: "20px", letterSpacing: "-0.3px", fontWeight: "400" },
         ],
         caption3: [
           "18px",
-          { lineHeight: "18px", letterSpacing: "0.5px", fontWeight: "400" },
+          { lineHeight: "18px", letterSpacing: "-0.5px", fontWeight: "400" },
         ],
         caption4: [
           "16px",
-          { lineHeight: "15px", letterSpacing: "0.2px", fontWeight: "400" },
+          { lineHeight: "15px", letterSpacing: "-0.2px", fontWeight: "400" },
         ],
       },
       colors: {
@@ -100,6 +100,9 @@ const config: Config = {
           800: "#333333",
           DEFAULT: "#1D1D1D",
         },
+      },
+      borderRadius: {
+        DEFAULT: "10px",
       },
     },
   },

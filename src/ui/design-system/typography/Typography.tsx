@@ -6,20 +6,12 @@ interface TypographyProps {
   theme?: "black" | "gray" | "white" | "primary" | "secondary";
   weight?: "regular" | "medium";
   className?: string;
-  component?:
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "div" /* DEFAULT */
-    | "p"
-    | "span";
+  component?: "h1" | "h2" | "h3" | "h4" | "h5" | "div" | "p" | "span";
   variant?:
     | "display"
     | "h1"
     | "h2"
-    | "h3" /* DEFAULT */
+    | "h3"
     | "h4"
     | "h5"
     | "lead"
@@ -40,6 +32,7 @@ interface TypographyProps {
  * @param {string} weight - regular
  *
  */
+
 const Typography = ({
   variant = "h3",
   children,
@@ -61,7 +54,7 @@ const Typography = ({
     case "h2":
       variantStyles = "text-6xl";
       break;
-    case "h3": // DEFAULT
+    case "h3":
       variantStyles = "text-5xl";
       break;
     case "h4":
@@ -97,7 +90,7 @@ const Typography = ({
   }
 
   switch (theme) {
-    case "black": // DEFAULT
+    case "black":
       colorStyles = "text-gray";
       break;
     case "gray":
