@@ -1,5 +1,5 @@
-//import "@/styles/globals.css";
+import LandingPageContainer from "@/ui/modules/landingPage/LandingPage.container";
 
 export default function Home() {
-  return <></>;
+  return <LandingPageContainer></LandingPageContainer>;
 }

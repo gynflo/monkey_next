@@ -4,16 +4,21 @@ import clsx from "clsx";
 
 import type { IconProps } from "@/types";
 import Spinner from "../spinner/Spinner";
+import { LinkType, LinkTypes } from "@/lib/linkType";
+import ActiveLink from "@/ui/components/navigation/ActiveLink";
 
 interface ButtonProps {
   size?: "small" | "medium" | "large";
-  variant?: "accent" | "secondary" | "outline" | "disabled" | "ico";
+  variant?: "accent" | "secondary" | "success" | "outline" | "disabled" | "ico";
   icon?: IconProps;
   iconTheme?: "accent" | "secondary" | "gray";
   iconPosition?: "left" | "right";
   disabled?: boolean;
   isLoading?: boolean;
   children?: React.ReactNode;
+  baseUrl?: string;
+  linkType?: LinkType;
+  action?: () => void;
 }
 
 /**
@@ -22,6 +27,7 @@ interface ButtonProps {
  * @param {string} size - medium
  * @param {string} iconTheme - accent
  * @param {string} iconPosition - right
+ * @param {string} linkType - internal
  *
  */
 
@@ -34,6 +40,9 @@ const Button = ({
   disabled,
   isLoading,
   children,
+  baseUrl,
+  linkType = "internal",
+  action = () => {},
 }: ButtonProps) => {
   let variantStyles: string = "";
   let sizeStyles: string = "";
@@ -46,6 +55,9 @@ const Button = ({
     case "secondary":
       variantStyles =
         "bg-primary-200 hover:bg-primary-300/50 text-primary rounded";
+      break;
+    case "success":
+      variantStyles = "text-white bg-secondary hover:bg-secondary-400 rounded";
       break;
     case "outline":
       variantStyles =
@@ -64,7 +76,7 @@ const Button = ({
           "bg-primary-200 hover:bg-primary-300/50 text-primary rounded-full";
       } else {
         variantStyles =
-          "text-white bg-gray-700 hover:bg-gray-600 rounded-full ";
+          "text-white bg-gray-800 hover:bg-gray-700 rounded-full ";
       }
       break;
   }
@@ -96,21 +108,8 @@ const Button = ({
       break;
   }
 
-  return (
-    <button
-      type="button"
-      className={clsx(
-        "relative animate",
-        variantStyles,
-        sizeStyles,
-        icoSize,
-        isLoading && "cursor-wait"
-      )}
-      onClick={() => {
-        console.log("button click");
-      }}
-      disabled={disabled}
-    >
+  const buttonContent = (
+    <>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">
           {variant === "accent" || variant === "ico" ? (
@@ -139,8 +138,45 @@ const Button = ({
           </div>
         )}
       </div>
+    </>
+  );
+
+  function handleClick() {
+    if (action) {
+      action();
+    }
+  }
+
+  const buttonElmt = (
+    <button
+      type="button"
+      className={clsx(
+        "relative animate",
+        variantStyles,
+        sizeStyles,
+        icoSize,
+        isLoading && "cursor-wait"
+      )}
+      onClick={handleClick}
+      disabled={disabled}
+    >
+      {buttonContent}
     </button>
   );
+
+  if (baseUrl) {
+    if (linkType === LinkTypes.EXTERNAL) {
+      return (
+        <a href={baseUrl} target="_blank">
+          {buttonElmt}
+        </a>
+      );
+    }
+
+    return <ActiveLink href={baseUrl}>{buttonElmt}</ActiveLink>;
+  }
+
+  return buttonElmt;
 };
 
 export default Button;

@@ -13,9 +13,7 @@ interface ActiveLinkProps {
 const ActiveLink = ({ children, href }: ActiveLinkProps) => {
   const pathname = usePathname();
 
-  const isActive = useMemo(() => {
-    return pathname === href;
-  }, [href, pathname]);
+  const isActive = pathname === href;
 
   return (
     <Link href={href} className={clsx(isActive && "font-medium text-primary")}>

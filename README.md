@@ -20,3 +20,11 @@
 
 - Passage d'un objet avec pour clé icon et la fonction comme valeur
 - A l'heure actuelle , pas d'autre choix connus que de déporter l'icone afin que la page soit correctement rendu coté serveur. (A revoir si jamais)
+
+## Création du composant Navigation
+
+Le composant Link de next/navigation , n'apporte pas l'information du active-link, fait maison pour le coup.
+
+A noter que l'utilisation de useMemo() est requis pour des calculs couteux dépassant 1ms, afin d'augmenter la performance de l'application
+
+## Création du composant Footer (Array Data)

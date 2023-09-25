@@ -2,13 +2,14 @@ import Logo from "@/ui/design-system/logo/Logo";
 import Typography from "@/ui/design-system/typography/Typography";
 import Button from "@/ui/design-system/button/Button";
 import ActiveLink from "./ActiveLink";
+import Container from "../container/Container";
 
 interface NavigationProps {}
 
 const Navigation = ({}: NavigationProps) => {
   return (
-    <div className="border-b-2 border-400">
-      <nav className="w-full max-w-7xl mx-auto px-5 lg:px-10  flex items-center justify-between gap-7  py-1.5 ">
+    <nav className="border-b-2 border-400">
+      <Container className="flex items-center justify-between gap-7  py-1.5 ">
         <div className="flex items-center gap-2.5 ">
           <div>
             <ActiveLink href={"/"}>
@@ -37,14 +38,21 @@ const Navigation = ({}: NavigationProps) => {
             <ActiveLink href={"/contact"}>Contact</ActiveLink>
           </Typography>
           <div className="flex items-center gap-2">
-            <Button size="small" variant="secondary" iconTheme="secondary">
+            <Button
+              size="small"
+              variant="secondary"
+              iconTheme="secondary"
+              baseUrl="/connexion"
+            >
               Connexion
             </Button>
-            <Button size="small">Rejoindre</Button>
+            <Button size="small" baseUrl="/inscription">
+              Rejoindre
+            </Button>
           </div>
         </div>
-      </nav>
-    </div>
+      </Container>
+    </nav>
   );
 };
 

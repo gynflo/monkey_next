@@ -29,7 +29,7 @@ interface TypographyProps {
  * @param {string} variant - h3
  * @param {string} component - div
  * @param {string} theme - black
- * @param {string} weight - regular
+ * @param {string} weight - regular 400
  *
  */
 
