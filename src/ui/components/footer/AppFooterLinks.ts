@@ -41,19 +41,19 @@ const footerUserLinks: Array<AppLinks> = [
   {
     id: uuidv4(),
     label: "Connexion",
-    baseUrl: "/#",
+    baseUrl: "/connexion",
     type: "internal",
   },
   {
     id: uuidv4(),
     label: "Inscription",
-    baseUrl: "/#",
+    baseUrl: "/inscription",
     type: "internal",
   },
   {
     id: uuidv4(),
     label: "Mot de passe oublié",
-    baseUrl: "/#",
+    baseUrl: "/mot-de-passe-perdu",
     type: "internal",
   },
 ];

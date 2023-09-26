@@ -3,7 +3,15 @@ import clsx from "clsx";
 
 interface TypographyProps {
   children: React.ReactNode;
-  theme?: "black" | "gray" | "white" | "primary" | "secondary";
+  theme?:
+    | "black"
+    | "gray"
+    | "white"
+    | "primary"
+    | "secondary"
+    | "danger"
+    | "warning"
+    | "success";
   weight?: "regular" | "medium";
   className?: string;
   component?: "h1" | "h2" | "h3" | "h4" | "h5" | "div" | "p" | "span";
@@ -104,6 +112,15 @@ const Typography = ({
       break;
     case "secondary":
       colorStyles = "text-secondary";
+      break;
+    case "danger":
+      colorStyles = "text-alert-danger";
+      break;
+    case "warning":
+      colorStyles = "text-alert-warning";
+      break;
+    case "success":
+      colorStyles = "text-alert-success";
       break;
   }
 

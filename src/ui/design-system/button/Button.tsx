@@ -19,6 +19,8 @@ interface ButtonProps {
   baseUrl?: string;
   linkType?: LinkType;
   action?: () => void;
+  type?: "button" | "submit";
+  fullwidth?: boolean;
 }
 
 /**
@@ -28,6 +30,8 @@ interface ButtonProps {
  * @param {string} iconTheme - accent
  * @param {string} iconPosition - right
  * @param {string} linkType - internal
+ * @param {string} type - button
+ * @param {string} fullwidth - false
  *
  */
 
@@ -42,6 +46,8 @@ const Button = ({
   children,
   baseUrl,
   linkType = "internal",
+  type = "button",
+  fullwidth = false,
   action = () => {},
 }: ButtonProps) => {
   let variantStyles: string = "";
@@ -149,16 +155,17 @@ const Button = ({
 
   const buttonElmt = (
     <button
-      type="button"
+      type={type}
       className={clsx(
         "relative animate",
         variantStyles,
         sizeStyles,
         icoSize,
-        isLoading && "cursor-wait"
+        isLoading && "cursor-not-allowed",
+        fullwidth && "w-full"
       )}
       onClick={handleClick}
-      disabled={disabled}
+      disabled={disabled || isLoading ? true : false}
     >
       {buttonContent}
     </button>

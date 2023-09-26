@@ -1,12 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import type { FormsType } from "@/types/form";
+// Components
 import Container from "@/ui/components/container/Container";
 import Box from "@/ui/design-system/box/Box";
 import Typography from "@/ui/design-system/typography/Typography";
 import LoginForm from "./LoginForm";
 
-const LoginView = () => {
+interface LoginViewProps {
+  form: FormsType;
+}
+
+const LoginView = ({ form }: LoginViewProps) => {
   return (
     <Container>
       <section className="grid grid-cols-2 gap-20 mb-32">
@@ -33,7 +39,15 @@ const LoginView = () => {
                 </Typography>
               </div>
             </div>
-            <LoginForm />
+            <LoginForm form={form} />
+            <Typography
+              variant="caption4"
+              component="p"
+              theme="primary"
+              className="text-center"
+            >
+              <Link href={"/mot-de-passe-perdu"}>mot de passe perdu ?</Link>
+            </Typography>
           </Box>
         </div>
       </section>

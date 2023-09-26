@@ -1,12 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import type { FormsType } from "@/types/form";
+// Components
 import Container from "@/ui/components/container/Container";
 import Box from "@/ui/design-system/box/Box";
 import Typography from "@/ui/design-system/typography/Typography";
 import ForgotPasswordForm from "./ForgotPassword.form";
 
-const ForgotPasswordView = () => {
+interface ForgotPasswordViewProps {
+  form: FormsType;
+}
+
+const ForgotPasswordView = ({ form }: ForgotPasswordViewProps) => {
   return (
     <Container>
       <section className="grid grid-cols-2 gap-20 mb-32">
@@ -30,7 +36,7 @@ const ForgotPasswordView = () => {
                 </Typography>
               </div>
             </div>
-            <ForgotPasswordForm />
+            <ForgotPasswordForm form={form} />
           </Box>
         </div>
       </section>

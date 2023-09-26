@@ -1,12 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import type { FormsType } from "@/types/form";
+// Components
 import Container from "@/ui/components/container/Container";
 import Box from "@/ui/design-system/box/Box";
 import Typography from "@/ui/design-system/typography/Typography";
 import RegisterForm from "./Register.form";
 
-const RegisterView = () => {
+
+interface RegisterViewProps {
+  form: FormsType;
+}
+
+const RegisterView = ({ form }: RegisterViewProps) => {
   return (
     <Container>
       <section className="grid grid-cols-2 gap-20 mb-32">
@@ -33,7 +40,7 @@ const RegisterView = () => {
                 </Typography>
               </div>
             </div>
-            <RegisterForm />
+            <RegisterForm form={form} />
           </Box>
         </div>
       </section>

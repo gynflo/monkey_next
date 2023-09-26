@@ -101,6 +101,11 @@ const config: Config = {
           800: "#333333",
           DEFAULT: "#1D1D1D",
         },
+        alert: {
+          danger: "#FF4E4E",
+          warning: "#FEB72F",
+          success: "#90DA1A",
+        },
       },
       borderRadius: {
         DEFAULT: "10px",
