@@ -35,4 +35,7 @@ A noter que l'utilisation de useMemo() est requis pour des calculs couteux dépa
 ## Création du breadcrumbs ,des pages d'authentification (login, register, forgotPassord)
 
 ## Création des formulaires d'authentification , utilisation du package react-hook-form
-Mise en place de la logique dans le .container puis props-drilling dans les composants plus bas (.view => .form)
+Mise en place de la logique dans le .container puis props-drilling dans les composants plus bas (.view => .form).
+Il est possible de revoir ce concept afin de reduire la partie cliente à son strict minimum, soit le formulaire.
+
+- Erreur sur les routes handler avec pour code: 'NEXT_STATIC_GEN_BAILOUT' , résolu en désactivant dans next.config =>  output: "export",
