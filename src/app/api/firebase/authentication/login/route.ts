@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 import { auth } from "@/config/firebase.config";
 import { FirebaseError } from "firebase/app";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   const { email, password } = await request.json();
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(
+    const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
       password
@@ -18,9 +18,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ data: user });
   } catch (error) {
     const firebaseError = error as FirebaseError;
-    /* 
-    * TODO Format error in french
-    */
+    /*
+     * TODO Format error in french
+     */
 
     return NextResponse.json({
       error: {

@@ -8,7 +8,6 @@ import Box from "@/ui/design-system/box/Box";
 import Typography from "@/ui/design-system/typography/Typography";
 import RegisterForm from "./Register.form";
 
-
 interface RegisterViewProps {
   form: FormsType;
 }
@@ -41,6 +40,20 @@ const RegisterView = ({ form }: RegisterViewProps) => {
               </div>
             </div>
             <RegisterForm form={form} />
+            <Typography
+              variant="caption4"
+              theme="gray"
+              className="max-w-md mx-auto space-y-1 text-center"
+            >
+              <div>En t’inscrivant, tu acceptes les </div>
+              <div>
+                <Link href={""} className="text-gray">
+                  Conditions d&apos;utilisation
+                </Link>
+                et la
+                <Link href={"#/"}> Politique de confidentialité.</Link>
+              </div>
+            </Typography>
           </Box>
         </div>
       </section>

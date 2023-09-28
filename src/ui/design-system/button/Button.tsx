@@ -9,7 +9,7 @@ import ActiveLink from "@/ui/components/navigation/ActiveLink";
 
 interface ButtonProps {
   size?: "small" | "medium" | "large";
-  variant?: "accent" | "secondary" | "success" | "outline" | "disabled" | "ico";
+  variant?: "accent" | "secondary" | "success" | "danger" | "outline" | "disabled" | "ico";
   icon?: IconProps;
   iconTheme?: "accent" | "secondary" | "gray";
   iconPosition?: "left" | "right";
@@ -64,6 +64,9 @@ const Button = ({
       break;
     case "success":
       variantStyles = "text-white bg-secondary hover:bg-secondary-400 rounded";
+      break;
+    case "danger":
+      variantStyles = "text-white bg-alert-danger hover:bg-alert-danger/75 rounded";
       break;
     case "outline":
       variantStyles =

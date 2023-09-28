@@ -46,7 +46,7 @@ const LoginView = ({ form }: LoginViewProps) => {
               theme="primary"
               className="text-center"
             >
-              <Link href={"/mot-de-passe-perdu"}>mot de passe perdu ?</Link>
+              <Link href={"/mot-de-passe-perdu"}>Mot de passe perdu ?</Link>
             </Typography>
           </Box>
         </div>

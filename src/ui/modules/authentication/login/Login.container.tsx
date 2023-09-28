@@ -1,14 +1,20 @@
 "use client";
 
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { LoginFormFieldsType } from "@/types/form";
+// Hooks
+import { useToggle } from "@/hooks/use-toggle";
+import { useRouter } from "next/navigation";
 
+// Components
 import LoginView from "./Login.view";
 
 const LoginContainer = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const { value: isLoading, setValue: setIsLoading } = useToggle({
+    initial: false,
+  });
+  const router = useRouter();
   const {
     handleSubmit,
     formState: { errors },
@@ -17,17 +23,42 @@ const LoginContainer = () => {
     reset,
   } = useForm<LoginFormFieldsType>();
 
+  const handleSignInUser = async ({ email, password }: LoginFormFieldsType) => {
+    const response = await fetch("/api/firebase/authentication/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      setIsLoading(false);
+      const { error } = await response.json();
+      if (error) {
+        return toast.error(error.message);
+      }
+
+      toast.success("Bienvenue sur l'application !");
+      reset();
+      return router.push("/mon-espace");
+    }
+  };
+
   const onSubmit: SubmitHandler<LoginFormFieldsType> = async (formData) => {
     setIsLoading(true);
-    console.log(
-      "🚀 ~ file: Login.container.tsx:22 ~ constonSubmit:SubmitHandler<LoginFormFieldsType>= ~ formData:",
-      formData
-    );
 
-    /**
-     *  TODO: Implémentez la logique du formulaire
-     *
-     */
+    const { password } = formData;
+    if (password.length <= 5) {
+      setIsLoading(false);
+      return setError("password", {
+        type: "manual",
+        message: "Ton mot de passe doit comporter au minimum 6 caractères.",
+      });
+    }
+
+    setIsLoading(false);
+    return handleSignInUser(formData);
   };
 
   return (

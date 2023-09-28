@@ -1,26 +1,23 @@
 export const dynamic = "force-static";
 import { auth } from "@/config/firebase.config";
 import { FirebaseError } from "firebase/app";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
-  const { email, password } = await request.json();
-
+export async function GET(request: NextRequest) {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    return NextResponse.json({ data: user });
+    await signOut(auth);
+    return NextResponse.json({
+      message: "Vous êtes déconnecté ",
+      success: true,
+      data: true,
+    });
   } catch (error) {
     const firebaseError = error as FirebaseError;
-    /* 
-    * TODO Format error in french
-    */
+    /*
+     * TODO Format error in french
+     */
 
     return NextResponse.json({
       error: {

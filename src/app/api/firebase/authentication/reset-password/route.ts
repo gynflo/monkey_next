@@ -1,26 +1,26 @@
 export const dynamic = "force-static";
 import { auth } from "@/config/firebase.config";
 import { FirebaseError } from "firebase/app";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const { email, password } = await request.json();
+  const { email } = await request.json();
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    return NextResponse.json({ data: user });
+    await sendPasswordResetEmail(auth, email);
+
+    return NextResponse.json({
+      message: `Un Email de réinitialisation de mot de passe vient d'être envoyé à ${email}`,
+      success: true,
+      data: true,
+    });
   } catch (error) {
     const firebaseError = error as FirebaseError;
-    /* 
-    * TODO Format error in french
-    */
+    /*
+     * TODO Format error in french
+     */
 
     return NextResponse.json({
       error: {
