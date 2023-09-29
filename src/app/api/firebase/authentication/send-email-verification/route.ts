@@ -1,20 +1,21 @@
 export const dynamic = "force-static";
 import { auth } from "@/config/firebase.config";
 import { FirebaseError } from "firebase/app";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendEmailVerification } from "firebase/auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
-  const { email, password } = await request.json();
-
+export async function GET() {
+  if(!auth.currentUser) {
+    console.log('Aucun utilisateur')
+    return null
+  };
+ 
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    return NextResponse.json({ data: user });
+    await sendEmailVerification(auth.currentUser);
+
+    return NextResponse.json({
+      data: true,
+    });
   } catch (error) {
     const firebaseError = error as FirebaseError;
     /*

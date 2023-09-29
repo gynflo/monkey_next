@@ -7,17 +7,25 @@ import Button from "@/ui/design-system/button/Button";
 import Box from "@/ui/design-system/box/Box";
 import Typography from "@/ui/design-system/typography/Typography";
 import ActiveLink from "../ActiveLink";
+import { signOutUserByFirebase } from "@/config/firebase/authentification";
 
 const UserAccountNavigation = () => {
   const handleClickUserLogout = async () => {
-    const response = await fetch("api/firebase/authentication/logout");
+    // ! Solution via les API à revoir, (currentUser & sendEmailVerification ne fonctionnent pas).
+    /* const response = await fetch("api/firebase/authentication/logout");
     if (response.ok) {
       const { data, message } = await response.json();
 
       if (data) {
         toast.success(message);
       }
+    } */
+    const { error } = await signOutUserByFirebase();
+    if (error) {
+      toast.error(error.message);
+      return;
     }
+    toast.success("Vous êtes bien déconnecté !");
   };
 
   return (

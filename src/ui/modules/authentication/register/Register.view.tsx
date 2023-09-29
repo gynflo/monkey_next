@@ -47,9 +47,9 @@ const RegisterView = ({ form }: RegisterViewProps) => {
             >
               <div>En t’inscrivant, tu acceptes les </div>
               <div>
-                <Link href={""} className="text-gray">
+                <Link href={"#"} className="text-gray">
                   Conditions d&apos;utilisation
-                </Link>
+                </Link>{" "}
                 et la
                 <Link href={"#/"}> Politique de confidentialité.</Link>
               </div>

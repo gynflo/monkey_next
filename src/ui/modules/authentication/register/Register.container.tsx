@@ -3,15 +3,21 @@ import { toast } from "react-toastify";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { RegisterFormFieldsType } from "@/types/form";
-
+// Components
 import RegisterView from "./Register.view";
+// Hooks
 import { useToggle } from "@/hooks/use-toggle";
+// Firebase
+import {
+  createUserByFirebase,
+  sendEmailVerificationByFirebase,
+} from "@/config/firebase/authentification";
+import { createDocumentByFirestore } from "@/config/firestore";
 
 const RegisterContainer = () => {
-  const {
-    value: isLoading,
-    setValue: setIsLoading,
-  } = useToggle({ initial: false });
+  const { value: isLoading, setValue: setIsLoading } = useToggle({
+    initial: false,
+  });
 
   const {
     handleSubmit,
@@ -21,12 +27,55 @@ const RegisterContainer = () => {
     reset,
   } = useForm<RegisterFormFieldsType>();
 
+  const handleCreateUserDocument = async (
+    collectionName: string,
+    documentId: string,
+    document: {}
+  ) => {
+    // ! Solution via les API à revoir, (currentUser & sendEmailVerification ne fonctionnent pas).
+    /* const response = await fetch("/api/firestore/create-document", {
+      method: "POST",
+      body: JSON.stringify({ collectionName, documentId, document }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      setIsLoading(false);
+      const { error } = await response.json();
+      if (error) {
+        return toast.error(error.message);
+      }
+
+      toast.success("Inscription réalisée avec succès");
+      reset();
+      await fetch("/api/firebase/authentication/send-email-verification");
+    } */
+    const { error } = await createDocumentByFirestore(
+      collectionName,
+      documentId,
+      document
+    );
+    if (error) {
+      toast.error(error.message);
+      setIsLoading(false);
+      return;
+    }
+
+    toast.success("Bienvenue sur l'app des singes codeurs");
+    setIsLoading(false);
+    reset();
+    sendEmailVerificationByFirebase();
+  };
+
   const handleCreateUserAuthentication = async ({
     email,
     password,
     howYouKnewUs,
   }: RegisterFormFieldsType) => {
-    const response = await fetch("/api/firebase/authentication/register", {
+    // ! Solution via les API à revoir, (currentUser & sendEmailVerification ne fonctionnent pas).
+    /* const response = await fetch("/api/firebase/authentication/register", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: {
@@ -41,11 +90,31 @@ const RegisterContainer = () => {
         setIsLoading(false);
         return toast.error(error.message);
       }
-      //* TODO create user document
-      setIsLoading(false);
-      toast.success("Inscription réalisée avec succès");
-      reset();
+
+      const userDocument = {
+        email: email,
+        howYouKnewUs,
+        uid: data.uid,
+        created_date: new Date(),
+      };
+
+      handleCreateUserDocument("users", data.uid, userDocument);
+    } */
+    const { data, error } = await createUserByFirebase(email, password);
+
+    if (error) {
+      toast.error(error.message);
+      return setIsLoading(false);
     }
+
+    const userDocumentCreatedByFirebase = {
+      email,
+      howYouKnewUs,
+      uid: data.uid,
+      created_at: new Date(),
+    };
+
+    handleCreateUserDocument("users", data.uid, userDocumentCreatedByFirebase);
   };
 
   const onSubmit: SubmitHandler<RegisterFormFieldsType> = async (formData) => {

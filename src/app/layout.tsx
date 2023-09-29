@@ -8,6 +8,8 @@ import { Inter } from "next/font/google";
 // Components
 import Navigation from "@/ui/components/navigation/Navigation";
 import Footer from "@/ui/components/footer/Footer";
+// Context
+import { AuthUserProvider } from "@/context/AuthUSerContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,14 +29,16 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <ToastContainer
-          position="top-center"
-          autoClose={8000}
-          transition={Flip}
-        />
-        <Navigation />
-        {children}
-        <Footer />
+        <AuthUserProvider>
+          <ToastContainer
+            position="top-center"
+            autoClose={8000}
+            transition={Flip}
+          />
+          <Navigation />
+          {children}
+          <Footer />
+        </AuthUserProvider>
       </body>
     </html>
   );

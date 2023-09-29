@@ -1,3 +1,8 @@
+"use client";
+
+// Context
+import { useAuth } from "@/context/AuthUSerContext";
+// Components
 import Logo from "@/ui/design-system/logo/Logo";
 import Typography from "@/ui/design-system/typography/Typography";
 import Button from "@/ui/design-system/button/Button";
@@ -7,6 +12,12 @@ import Container from "../container/Container";
 interface NavigationProps {}
 
 const Navigation = ({}: NavigationProps) => {
+  const { authUser } = useAuth();
+  console.log(
+    "🚀 ~ file: Navigation.tsx:16 ~ Navigation ~ authUser:",
+    authUser
+  );
+
   return (
     <nav className="border-b-2 border-400">
       <Container className="flex items-center justify-between gap-7  py-1.5 ">

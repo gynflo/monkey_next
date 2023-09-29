@@ -8,6 +8,7 @@ import { useToggle } from "@/hooks/use-toggle";
 // Components
 import ForgotPasswordView from "./ForgotPassword.view";
 import { toast } from "react-toastify";
+import { sendEmailToResetPassword } from "@/config/firebase/authentification";
 
 const ForgotPasswordContainer = () => {
   const router = useRouter();
@@ -25,7 +26,8 @@ const ForgotPasswordContainer = () => {
     email,
   }: ForgotPasswordFormFieldsType) => {
     setIsLoading(true);
-    const response = await fetch(
+    // ! Solution via les API à revoir, (currentUser & sendEmailVerification ne fonctionnent pas).
+    /* const response = await fetch(
       "/api/firebase/authentication/reset-password",
       {
         method: "POST",
@@ -45,7 +47,16 @@ const ForgotPasswordContainer = () => {
       }
 
       return toast.error(error.message);
+    } */
+    const { error } = await sendEmailToResetPassword(email);
+    if (error) {
+      setIsLoading(false);
+      toast.error(error.message);
+      return;
     }
+    toast.success(`Un email de réinitialisation vous a été envoyé à ${email}`);
+    setIsLoading(false);
+    router.push("/connexion");
   };
 
   const onSubmit: SubmitHandler<ForgotPasswordFormFieldsType> = async (

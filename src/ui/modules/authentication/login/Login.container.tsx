@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 // Components
 import LoginView from "./Login.view";
+import { signInUserByFirebase } from "@/config/firebase/authentification";
 
 const LoginContainer = () => {
   const { value: isLoading, setValue: setIsLoading } = useToggle({
@@ -24,7 +25,8 @@ const LoginContainer = () => {
   } = useForm<LoginFormFieldsType>();
 
   const handleSignInUser = async ({ email, password }: LoginFormFieldsType) => {
-    const response = await fetch("/api/firebase/authentication/login", {
+    // ! Solution via les API à revoir, (currentUser & sendEmailVerification ne fonctionnent pas).
+    /* const response = await fetch("/api/firebase/authentication/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: {
@@ -42,7 +44,17 @@ const LoginContainer = () => {
       toast.success("Bienvenue sur l'application !");
       reset();
       return router.push("/mon-espace");
+    } */
+    const { error } = await signInUserByFirebase(email, password);
+    if (error) {
+      setIsLoading(false);
+      toast.error(error.message);
+      return;
     }
+    toast.success("Bienvenue sur Coders Monkeys");
+    reset();
+    setIsLoading(false);
+    router.push("/mon-espace");
   };
 
   const onSubmit: SubmitHandler<LoginFormFieldsType> = async (formData) => {
