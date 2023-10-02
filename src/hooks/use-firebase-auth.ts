@@ -1,3 +1,4 @@
+"use client";
 
 import { User, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/config/firebase.config";
@@ -37,12 +38,13 @@ export default function useFirebaseAuth() {
   };
 
   const authStateChanged = async (authState: UserInterface | User | null) => {
+    setAuthUserIsLoading(true);
     if (!authState) {
       setAuthUser(null);
-      return setAuthUserIsLoading(false);
+      setAuthUserIsLoading(false);
+      return ;
     }
 
-    setAuthUserIsLoading(true);
     const formattedUser = formatAuthUser(authState);
     await getUserDocument(formattedUser);
   };

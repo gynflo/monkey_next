@@ -9,12 +9,12 @@ import Button from "@/ui/design-system/button/Button";
 import ActiveLink from "./ActiveLink";
 import Container from "../container/Container";
 
+
+
 interface NavigationProps {}
 
 const Navigation = ({}: NavigationProps) => {
-  const { authUser } = useAuth();
-  console.log("🚀 ~ file: Navigation.tsx:16 ~ Navigation ~ authUser:", authUser)
- 
+  const { authUser,authUserIsLoading } = useAuth();
 
   return (
     <nav className="border-b-2 border-400">

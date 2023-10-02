@@ -38,3 +38,6 @@ Mise en place de la logique dans le .container puis props-drilling dans les comp
 Il est possible de revoir ce concept afin de reduire la partie cliente à son strict minimum, soit le formulaire.
 
 - Erreur sur les routes handler avec pour code: 'NEXT_STATIC_GEN_BAILOUT' , résolu en désactivant dans next.config =>  output: "export" || dans route.ts => export const dynamic = "force-static";
+
+### Création du composant Session 
+Création du composant session afin d'éliminer l'effet highlight de l'application, je me sers du hook use-firebase-auth afin de jouer avec le retour booleen de authUserIsLoading

@@ -8,6 +8,7 @@ import { Inter } from "next/font/google";
 // Components
 import Navigation from "@/ui/components/navigation/Navigation";
 import Footer from "@/ui/components/footer/Footer";
+
 // Context
 import { AuthUserProvider } from "@/context/AuthUSerContext";
 
@@ -30,14 +31,16 @@ export default function RootLayout({
     <html lang="fr">
       <body className={inter.className}>
         <AuthUserProvider>
-          <ToastContainer
-            position="top-center"
-            autoClose={8000}
-            transition={Flip}
-          />
-          <Navigation />
-          {children}
-          <Footer />
+          
+            <ToastContainer
+              position="top-center"
+              autoClose={8000}
+              transition={Flip}
+            />
+            <Navigation />
+            {children}
+            <Footer />
+          
         </AuthUserProvider>
       </body>
     </html>
