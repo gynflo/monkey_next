@@ -13,10 +13,8 @@ interface NavigationProps {}
 
 const Navigation = ({}: NavigationProps) => {
   const { authUser } = useAuth();
-  console.log(
-    "🚀 ~ file: Navigation.tsx:16 ~ Navigation ~ authUser:",
-    authUser
-  );
+  console.log("🚀 ~ file: Navigation.tsx:16 ~ Navigation ~ authUser:", authUser)
+ 
 
   return (
     <nav className="border-b-2 border-400">
